@@ -1,0 +1,19 @@
+version: '1'
+services:
+  routes-db:
+    image: mysql
+    ports:
+      - "7001:7001"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_USER: runapp
+      MYSQL_PASSWORD: 123
+      MYSQL_DATABASE: routes
+      MYSQL_HOST: routes-db
+  students-ms:
+    build: .
+    command: bash -c "sleep 40 && rm -f tmp/pids/server.pid && bundle exec rails db:migrate && bundle exec rails s -p 6001 -b '0.0.0.0'"
+    ports:
+      - "6001:6001"
+    depends_on:
+      - routes-db
