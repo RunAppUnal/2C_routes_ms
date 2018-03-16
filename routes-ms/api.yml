@@ -1,0 +1,238 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for routes
+  description: Ruby + MySQL
+  license:
+    name: Software Architecture 2018-I
+host: 192.168.99.102:6001
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /routes:
+    post:
+      summary: Creates a new route
+      operationId: createRoute
+      parameters:
+        - name: route
+          in: body
+          required: true
+          description: Route Object
+          schema:
+            $ref: '#/definitions/RouteInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all routes
+      operationId: getAllRoutes
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/RoutesList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /students/{id}:
+    get:
+      summary: Returns a route with the given id
+      operationId: getRouteById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the route to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Student'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates a route with the given id
+      operationId: updateRoute
+      parameters:
+        - name: id
+          in: path
+          description: The id of the route to be updated
+          required: true
+          type: integer
+        - name: route
+          in: body
+          required: true
+          description: Route Object
+          schema:
+            $ref: '#/definitions/RouteInput'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes a route with the given id
+      operationId: deleteRoute
+      parameters:
+        - name: id
+          in: path
+          description: The id of the route to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+
+  # Students
+  Route:
+    type: object
+    properties:
+      id:
+        type: integer
+      user_id:
+        type: integer
+      car_id:
+        type: integer
+      title:
+        type: string
+      description:
+        type: string
+      from_lat:
+        type: float
+      from_lng:
+        type: float
+      to_lat:
+        type: float
+      to_lng:
+        type: float
+      waypoints:
+        type: string
+      departure:
+        type: datetime
+      cost:
+        type: float
+      users_in_route:
+        type: string
+      active:
+        type: boolean
+      spaces_avaible:
+        type: integer
+
+
+
+  RouteInput:
+    type: object
+    properties:
+      user_id:
+        type: integer
+      car_id:
+        type: integer
+      title:
+        type: string
+      description:
+        type: string
+      from_lat:
+        type: float
+      from_lng:
+        type: float
+      to_lat:
+        type: float
+      to_lng:
+        type: float
+      waypoints:
+        type: string
+      departure:
+        type: datetime
+      cost:
+        type: float
+      users_in_route:
+        type: string
+      active:
+        type: boolean
+      spaces_avaible:
+        type: integer
+
+  RoutesList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Route'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
+      description:
+        type: object
