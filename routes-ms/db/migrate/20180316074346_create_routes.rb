@@ -1,8 +1,8 @@
 class CreateRoutes < ActiveRecord::Migration[5.1]
   def change
     create_table :routes do |t|
-      t.int :user_id
-      t.int :car_id
+      t.integer :user_id
+      t.integer :car_id
       t.string :title
       t.string :description
       t.float :from_lat
@@ -14,7 +14,7 @@ class CreateRoutes < ActiveRecord::Migration[5.1]
       t.float :cost
       t.string :users_in_route
       t.boolean :active
-      t.int :spaces_avaible
+      t.integer :spaces_avaible
 
       t.timestamps
     end

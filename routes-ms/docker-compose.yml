@@ -1,4 +1,4 @@
-version: '1'
+version: '2'
 services:
   routes-db:
     image: mysql
@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD: 123
       MYSQL_DATABASE: routes
       MYSQL_HOST: routes-db
-  students-ms:
+  routes-ms:
     build: .
     command: bash -c "sleep 40 && rm -f tmp/pids/server.pid && bundle exec rails db:migrate && bundle exec rails s -p 6001 -b '0.0.0.0'"
     ports:
