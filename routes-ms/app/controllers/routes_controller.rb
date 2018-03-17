@@ -39,21 +39,39 @@ class RoutesController < ApplicationController
   end
 
   def add_user
-    if (Route.checkUserInRoute == false)
+    if (Route.checkUserInRoute(params[:id],params[:userid]) == false)
       Route.addUSer(params[:id], params[:userid])
     end
   end
 
   def check_user
-    Route.checkUserInRoute
+    render json: Route.checkUserInRoute(params[:id],params[:userid])
   end
 
   def remove_user
-    if (Route.checkUserInRoute == true)
-      removeUser(params[:id], params[:userid])
-    end      
+    if (Route.checkUserInRoute(params[:id],params[:userid]) == true)
+      Route.removeUser(params[:id], params[:userid])
     end
+  end
 
+  def users_in_route
+    render json: Route.usersInRoute(params[:id])
+  end
+
+  def my_routes
+    render json: Route.myRoutes(params[:userid])
+  end
+
+  def other_routes
+    render json: Route.otherRoutes(params[:userid])
+  end
+
+  def search_my_routes
+    render json: Route.searchMyRoutes(params[:word], params[:cost], params[:date], params[:spaces], params[:userid])
+  end
+
+  def search_other_routes
+    render json: Route.searchOtherRoutes(params[:word], params[:cost], params[:date], params[:spaces], params[:userid])
   end
 
   private
