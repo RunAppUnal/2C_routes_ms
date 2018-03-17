@@ -38,6 +38,24 @@ class RoutesController < ApplicationController
     @route.destroy
   end
 
+  def add_user
+    if (Route.checkUserInRoute == false)
+      Route.addUSer(params[:id], params[:userid])
+    end
+  end
+
+  def check_user
+    Route.checkUserInRoute
+  end
+
+  def remove_user
+    if (Route.checkUserInRoute == true)
+      removeUser(params[:id], params[:userid])
+    end      
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_route
@@ -46,6 +64,6 @@ class RoutesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def route_params
-      params.require(:route).permit(:user_id, :car_id, :title, :description, :from_lat, :from_lng, :to_lat, :to_lng, :waypoints, :departure, :cost, :users_in_route, :active, :spaces_avaible)
+      params.require(:route).permit(:user_id, :car_id, :title, :description, :from_lat, :from_lng, :to_lat, :to_lng, :waypoints, :departure, :cost, :users_in_route, :active, :spaces_available)
     end
 end

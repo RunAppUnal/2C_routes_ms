@@ -14,7 +14,7 @@ class CreateRoutes < ActiveRecord::Migration[5.1]
       t.float :cost
       t.string :users_in_route
       t.boolean :active
-      t.integer :spaces_avaible
+      t.integer :spaces_available
 
       t.timestamps
     end
