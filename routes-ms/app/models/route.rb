@@ -51,6 +51,7 @@ class Route < ApplicationRecord
     results = results.where(["cost <= ? and user_id != ?", cost, user]) if cost.present?
     results = results.where("spaces_available >= ?", spaces).where.not(:user_id => user) if spaces.present?
     results = results.where("departure BETWEEN ? AND ?",DateTime.parse(date), DateTime.parse(date)+1).where.not(:user_id => user) if date.present?
+    return results
   end
 
 end
