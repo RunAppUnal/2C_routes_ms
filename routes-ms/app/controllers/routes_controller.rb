@@ -10,6 +10,8 @@ class RoutesController < ApplicationController
 
   # GET /routes/1
   def show
+    @tmp = @route
+    @tmp.users_in_route = @tmp.users_in_route.first(-2)
     render json: @route
   end
 
@@ -42,20 +44,26 @@ class RoutesController < ApplicationController
     if (Route.checkUserInRoute(params[:id],params[:userid]) == false)
       Route.addUSer(params[:id], params[:userid])
     end
+    @route = Route.findme(params[:id])
+    @route.users_in_route = @route.users_in_route.first(-2)
+    render json: @route
   end
 
   def check_user
-    render json: Route.checkUserInRoute(params[:id],params[:userid])
+    render json: "[{\"success\":\""+Route.checkUserInRoute(params[:id],params[:userid])+"\"}]"
   end
 
   def remove_user
     if (Route.checkUserInRoute(params[:id],params[:userid]) == true)
       Route.removeUser(params[:id], params[:userid])
     end
+    @route = Route.findme(params[:id])
+    @route.users_in_route = @route.users_in_route.first(-2)
+    render json: @route
   end
 
   def users_in_route
-    render json: Route.usersInRoute(params[:id])
+    render json: "[{\"users\":\""+Route.usersInRoute(params[:id])+"\"}]"
   end
 
   def my_routes

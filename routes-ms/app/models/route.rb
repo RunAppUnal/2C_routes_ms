@@ -25,7 +25,7 @@ class Route < ApplicationRecord
   end
 
   def self.usersInRoute(route)
-    Route.find(route).users_in_route.split(", ")
+    Route.find(route).users_in_route.first(-2)
   end
 
   def self.myRoutes(user)
@@ -52,6 +52,10 @@ class Route < ApplicationRecord
     results = results.where("spaces_available >= ?", spaces).where.not(:user_id => user) if spaces.present?
     results = results.where("departure BETWEEN ? AND ?",DateTime.parse(date), DateTime.parse(date)+1).where.not(:user_id => user) if date.present?
     return results
+  end
+
+  def self.findme(route)
+    Route.find(route)
   end
 
 end
