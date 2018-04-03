@@ -20,5 +20,7 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+  * docker-compose build
+  * docker-compose run --rm routes-ms bundle exec rails db:create db:migrate
+  * docker-compose up
 
-* ...
