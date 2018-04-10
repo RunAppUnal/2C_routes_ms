@@ -173,7 +173,7 @@ definitions:
         type: string
       active:
         type: boolean
-      spaces_avaible:
+      spaces_available:
         type: integer
 
 
@@ -207,7 +207,7 @@ definitions:
         type: string
       active:
         type: boolean
-      spaces_avaible:
+      spaces_available:
         type: integer
 
   RoutesList:

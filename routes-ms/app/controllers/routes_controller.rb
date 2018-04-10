@@ -41,46 +41,46 @@ class RoutesController < ApplicationController
   end
 
   def add_user
-    if (Route.checkUserInRoute(params[:id],params[:userid]) == false)
-      Route.addUSer(params[:id], params[:userid])
+      if (Route.checkUserInRoute(params[:id],params[:userid]) == false)
+        Route.addUSer(params[:id], params[:userid])
+      end
+      @route = Route.findme(params[:id])
+      @route.users_in_route = @route.users_in_route.first(-2)
+      render json: @route
     end
-    @route = Route.findme(params[:id])
-    @route.users_in_route = @route.users_in_route.first(-2)
-    render json: @route
-  end
 
-  def check_user
-    render json: "[{\"success\":\""+Route.checkUserInRoute(params[:id],params[:userid])+"\"}]"
-  end
-
-  def remove_user
-    if (Route.checkUserInRoute(params[:id],params[:userid]) == true)
-      Route.removeUser(params[:id], params[:userid])
+    def check_user
+      render json: "[{\"success\":\""+Route.checkUserInRoute(params[:id],params[:userid])+"\"}]"
     end
-    @route = Route.findme(params[:id])
-    @route.users_in_route = @route.users_in_route.first(-2)
-    render json: @route
-  end
 
-  def users_in_route
-    render json: "[{\"users\":\""+Route.usersInRoute(params[:id])+"\"}]"
-  end
+    def remove_user
+      if (Route.checkUserInRoute(params[:id],params[:userid]) == true)
+        Route.removeUser(params[:id], params[:userid])
+      end
+      @route = Route.findme(params[:id])
+      @route.users_in_route = @route.users_in_route.first(-2)
+      render json: @route
+    end
 
-  def my_routes
-    render json: Route.myRoutes(params[:userid])
-  end
+    def users_in_route
+      render json: "[{\"users\":\""+Route.usersInRoute(params[:id])+"\"}]"
+    end
 
-  def other_routes
-    render json: Route.otherRoutes(params[:userid])
-  end
+    def my_routes
+      render json: Route.myRoutes(params[:userid])
+    end
 
-  def search_my_routes
-    render json: Route.searchMyRoutes(params[:word], params[:cost], params[:date], params[:spaces], params[:userid])
-  end
+    def other_routes
+      render json: Route.otherRoutes(params[:userid])
+    end
 
-  def search_other_routes
-    render json: Route.searchOtherRoutes(params[:word], params[:cost], params[:date], params[:spaces], params[:userid])
-  end
+    def search_my_routes
+      render json: Route.searchMyRoutes(params[:word], params[:cost], params[:date], params[:spaces], params[:userid])
+    end
+
+    def search_other_routes
+      render json: Route.searchOtherRoutes(params[:word], params[:cost], params[:date], params[:spaces], params[:userid])
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.

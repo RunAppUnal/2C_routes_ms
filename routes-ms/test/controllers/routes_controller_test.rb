@@ -12,7 +12,7 @@ class RoutesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create route" do
     assert_difference('Route.count') do
-      post routes_url, params: { route: { active: @route.active, car_id: @route.car_id, cost: @route.cost, departure: @route.departure, description: @route.description, from_lat: @route.from_lat, from_lng: @route.from_lng, spaces_avaible: @route.spaces_avaible, title: @route.title, to_lat: @route.to_lat, to_lng: @route.to_lng, user_id: @route.user_id, users_in_route: @route.users_in_route, waypoints: @route.waypoints } }, as: :json
+      post routes_url, params: { route: { active: @route.active, car_id: @route.car_id, cost: @route.cost, departure: @route.departure, description: @route.description, from_lat: @route.from_lat, from_lng: @route.from_lng, spaces_available: @route.spaces_available, title: @route.title, to_lat: @route.to_lat, to_lng: @route.to_lng, user_id: @route.user_id, users_in_route: @route.users_in_route, waypoints: @route.waypoints } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class RoutesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update route" do
-    patch route_url(@route), params: { route: { active: @route.active, car_id: @route.car_id, cost: @route.cost, departure: @route.departure, description: @route.description, from_lat: @route.from_lat, from_lng: @route.from_lng, spaces_avaible: @route.spaces_avaible, title: @route.title, to_lat: @route.to_lat, to_lng: @route.to_lng, user_id: @route.user_id, users_in_route: @route.users_in_route, waypoints: @route.waypoints } }, as: :json
+    patch route_url(@route), params: { route: { active: @route.active, car_id: @route.car_id, cost: @route.cost, departure: @route.departure, description: @route.description, from_lat: @route.from_lat, from_lng: @route.from_lng, spaces_available: @route.spaces_available, title: @route.title, to_lat: @route.to_lat, to_lng: @route.to_lng, user_id: @route.user_id, users_in_route: @route.users_in_route, waypoints: @route.waypoints } }, as: :json
     assert_response 200
   end
 
