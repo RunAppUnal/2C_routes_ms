@@ -1,3 +1,4 @@
+
 class Route < ApplicationRecord
 
   def self.addUSer(route,user)#already routed and tested
