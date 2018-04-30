@@ -42,7 +42,7 @@ class Route < ApplicationRecord
     results = results.where(["(title LIKE ? OR description LIKE ?) AND user_id = ?", '%' + keyword + '%', '%' + keyword + '%', user]) if keyword.present?
     results = results.where(["cost <= ? and user_id = ?", cost, user]) if cost.present?
     results = results.where("spaces_available >= ?", spaces).where(:user_id => user) if spaces.present?
-    results = results.where('departure BETWEEN ? AND ?', DateTime.parse(date), DateTime.parse(date)+1).where(:user_id => user) if date.present?
+    results = results.where('departure >= ?', DateTime.parse(date)).where(:user_id => user) if date.present?
     return results
   end
 
@@ -51,7 +51,7 @@ class Route < ApplicationRecord
     results = results.where(["(title LIKE ? OR description LIKE ?)", '%' + keyword + '%', '%' + keyword + '%']) if keyword.present?
     results = results.where(["cost <= ? and user_id != ?", cost, user]) if cost.present?
     results = results.where("spaces_available >= ?", spaces).where.not(:user_id => user) if spaces.present?
-    results = results.where("departure BETWEEN ? AND ?",DateTime.parse(date), DateTime.parse(date)+1).where.not(:user_id => user) if date.present?
+    results = results.where('departure >= ?', DateTime.parse(date)).where.not(:user_id => user) if date.present?
     return results
   end
 

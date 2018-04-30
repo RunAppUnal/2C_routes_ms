@@ -8,3 +8,5 @@ ADD Gemfile.lock /routes-ms/Gemfile.lock
 
 RUN bundle install
 ADD . /routes-ms
+
+EXPOSE 6001
