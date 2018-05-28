@@ -90,6 +90,6 @@ class RoutesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def route_params
-      params.require(:route).permit(:user_id, :car_id, :title, :description, :from_lat, :from_lng, :to_lat, :to_lng, :waypoints, :departure, :cost, :users_in_route, :active, :spaces_available)
+      params.require(:route).permit(:user_id, :car_id, :title, :description, :from_lat, :from_lng, :to_lat, :to_lng, :waypoints, :departure, :cost, :users_in_route, :active, :spaces_available, :ratings, :userRating, :comments)
     end
 end
